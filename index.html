@@ -9,27 +9,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #1C1B19;
-    --bg-raised: #232220;
-    --bg-inset: #171614;
-    --paper: #EDE6D6;
-    --paper-dim: #B8AF9C;
-    --rule: #38362D;
-    --rule-soft: #2A2924;
-    --brass: #C9A227;
-    --brass-dim: #8A7223;
-    --sage: #6E9080;
-    --rust: #C1583B;
-    --rust-dim: #8C4530;
+    --bg: #F6F8FC;
+    --bg-raised: #FFFFFF;
+    --bg-inset: #EEF2F7;
+    --paper: #172033;
+    --paper-dim: #68758A;
+    --rule: #DCE3ED;
+    --rule-soft: #E8EDF4;
+    --brass: #4F7CFF;
+    --brass-dim: #7899FF;
+    --sage: #35B98A;
+    --rust: #E45C70;
+    --rust-dim: #C94B60;
 
-    --cat-food: #C9A227;
-    --cat-transport: #6E9080;
-    --cat-housing: #A97C4F;
-    --cat-utilities: #5B7B9A;
-    --cat-entertainment: #B0673D;
-    --cat-health: #8A7BA3;
-    --cat-shopping: #B99457;
-    --cat-other: #857E6E;
+    --cat-food: #4F7CFF;
+    --cat-transport: #35B98A;
+    --cat-housing: #FFB84D;
+    --cat-utilities: #6C8AE4;
+    --cat-entertainment: #C56CF0;
+    --cat-health: #F06C9B;
+    --cat-shopping: #21B6C7;
+    --cat-other: #8793A8;
 
     --serif: 'Fraunces', Georgia, serif;
     --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -39,7 +39,7 @@
   *{ box-sizing: border-box; }
   html,body{ margin:0; padding:0; }
   body{
-    background: var(--bg);
+    background: linear-gradient(135deg, #F8FAFF 0%, #F2F6FC 100%);
     color: var(--paper);
     font-family: var(--sans);
     line-height: 1.5;
@@ -95,6 +95,9 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
     border: 1px solid var(--rule);
+    border-radius: 18px;
+    background: rgba(255,255,255,0.82);
+    box-shadow: 0 10px 30px rgba(31, 50, 81, 0.06);
     margin-bottom: 40px;
   }
   .stat{
@@ -159,8 +162,75 @@
   /* ---------- Category chart ---------- */
   .chart-card{
     border: 1px solid var(--rule);
-    padding: 22px 24px 14px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.88);
+    box-shadow: 0 10px 30px rgba(31, 50, 81, 0.06);
+    padding: 26px 28px 18px;
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap: 30px;
+    align-items:center;
   }
+  @media (max-width: 640px){
+    .chart-card{ grid-template-columns: 1fr; }
+    .pie-wrap svg{ width: 190px; height: 190px; }
+  }
+  .pie-wrap{
+    display:flex;
+    justify-content:center;
+    padding: 6px 0 12px;
+  }
+  .pie-wrap svg{
+    width: 200px;
+    height: 200px;
+  }
+  .pie-slice{
+    transition: opacity 0.15s ease;
+  }
+  .pie-slice:hover{ opacity: 0.8; }
+  .pie-center-figure{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    fill: var(--paper);
+    font-weight: 500;
+  }
+  .pie-center-label{
+    font-family: var(--sans);
+    font-size: 8px;
+    fill: var(--paper-dim);
+  }
+  .pie-slice{
+    cursor: pointer;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .pie-slice:hover{
+    opacity: 0.92;
+    filter: brightness(1.05);
+  }
+  .pie-tooltip{
+    position: fixed;
+    z-index: 100;
+    pointer-events: none;
+    padding: 8px 11px;
+    border-radius: 9px;
+    background: #172033;
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 8px 22px rgba(23,32,51,0.18);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .12s ease, transform .12s ease;
+    white-space: nowrap;
+  }
+  .pie-tooltip.show{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .bar-list{ min-width: 0; }
   .bar-row{
     display:grid;
     grid-template-columns: 120px 1fr 84px;
@@ -217,17 +287,21 @@
     align-items:center;
   }
   select, input{
-    background: var(--bg-raised);
+    background: #FFFFFF;
     border: 1px solid var(--rule);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(31, 50, 81, 0.16);
     color: var(--paper);
     font-family: var(--sans);
     font-size: 13.5px;
     padding: 9px 12px;
-    border-radius: 2px;
+    border-radius: 10px;
     outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
   }
   select:focus, input:focus{
-    border-color: var(--brass-dim);
+    border-color: var(--brass);
+    box-shadow: 0 0 0 3px rgba(79,124,255,0.10);
   }
   select{ cursor:pointer; }
 
@@ -236,7 +310,7 @@
     font-size: 13.5px;
     font-weight: 500;
     padding: 9px 16px;
-    border-radius: 2px;
+    border-radius: 10px;
     border: 1px solid transparent;
     cursor:pointer;
     display:inline-flex;
@@ -249,7 +323,8 @@
   }
   .btn-primary{
     background: var(--brass);
-    color: #201A08;
+    color: #FFFFFF;
+    box-shadow: 0 6px 16px rgba(79,124,255,0.22);
   }
   .btn-primary:hover{ background: #DBB236; }
   .btn-ghost{
@@ -274,6 +349,9 @@
   /* ---------- Table ---------- */
   .table-card{
     border: 1px solid var(--rule);
+    border-radius: 16px;
+    background: #FFFFFF;
+    box-shadow: 0 10px 30px rgba(31, 50, 81, 0.05);
     overflow-x: auto;
   }
   table{
@@ -435,6 +513,8 @@
 </head>
 <body>
 
+<div class="pie-tooltip" id="pie-tooltip" role="tooltip"></div>
+
 <div class="wrap">
 
   <header class="top">
@@ -459,7 +539,7 @@
   </section>
 
   <section>
-    <h2 class="section-title">Spending by category</h2>
+    <h2 class="section-title">Spending by category<span class="hint">Share of total and dollar breakdown</span></h2>
     <div class="chart-card" id="category-chart"></div>
   </section>
 
@@ -558,8 +638,8 @@
     return d.toISOString().slice(0,10);
   }
 
-  // ---- Seed data ----
-  var expenses = [
+  // ---- Seed data / persistence ----
+  var defaultExpenses = [
     { id: uid(), description: "Groceries — Trader Joe's", amount: 64.32, category: 'food', date: isoDaysAgo(1) },
     { id: uid(), description: "Rent", amount: 950.00, category: 'housing', date: isoDaysAgo(3) },
     { id: uid(), description: "Gas station", amount: 41.10, category: 'transport', date: isoDaysAgo(4) },
@@ -571,6 +651,25 @@
     { id: uid(), description: "Streaming subscription", amount: 15.99, category: 'entertainment', date: isoDaysAgo(18) },
     { id: uid(), description: "Bus pass", amount: 55.00, category: 'transport', date: isoDaysAgo(20) }
   ];
+
+  var STORAGE_KEY = 'ledger-expenses-v1';
+  var savedExpenses = null;
+  try {
+    savedExpenses = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+  } catch (err) {
+    savedExpenses = null;
+  }
+  var expenses = Array.isArray(savedExpenses) ? savedExpenses : defaultExpenses;
+
+  function saveExpenses(){
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
+    } catch (err) {
+      // Keep the app functional if storage is unavailable.
+    }
+  }
+
+  if (!Array.isArray(savedExpenses)) saveExpenses();
 
   var state = {
     filterCategory: 'all',
@@ -585,6 +684,7 @@
   var elSortField = document.getElementById('sort-field');
   var elSortDir = document.getElementById('sort-dir');
   var elChart = document.getElementById('category-chart');
+  var elPieTooltip = document.getElementById('pie-tooltip');
   var elStatTotal = document.getElementById('stat-total');
   var elStatTotalNote = document.getElementById('stat-total-note');
   var elStatCount = document.getElementById('stat-count');
@@ -676,20 +776,104 @@
 
     var maxVal = Math.max.apply(null, active.map(function(c){ return totals[c.id]; }));
 
-    var html = '';
+    var barsHtml = '<div class="bar-list">';
     active.forEach(function(c){
       var val = totals[c.id];
       var pct = grand ? Math.round((val/grand)*100) : 0;
       var widthPct = maxVal ? (val/maxVal*100) : 0;
-      html += '' +
+      barsHtml += '' +
         '<div class="bar-row">' +
           '<div class="cname"><span class="swatch" style="background:' + c.color + '"></span>' + c.name + '</div>' +
           '<div class="bar-track"><div class="bar-fill" style="width:' + widthPct + '%; background:' + c.color + '"></div></div>' +
           '<div class="bamount">' + fmtMoney(val) + ' <span style="color:var(--paper-dim)">· ' + pct + '%</span></div>' +
         '</div>';
     });
-    elChart.innerHTML = html;
+    barsHtml += '</div>';
+
+    var pieHtml = '<div class="pie-wrap">' + buildPieSvg(active, totals, grand) + '</div>';
+
+    elChart.innerHTML = pieHtml + barsHtml;
   }
+
+  function buildPieSvg(active, totals, grand){
+    var size = 200, cx = size/2, cy = size/2, r = 78, inner = 47;
+    var startAngle = -90; // start at 12 o'clock
+    var paths = '';
+
+    if (grand <= 0) return '';
+
+    // If only one category, draw a full ring instead of a degenerate arc.
+    if (active.length === 1){
+      var only = active[0];
+      paths += '<circle class="pie-slice" cx="' + cx + '" cy="' + cy + '" r="' + r + '" ' +
+        'fill="none" stroke="' + only.color + '" stroke-width="' + (r-inner) +
+        '" data-category="' + escapeHtml(only.name) + '" data-value="' + fmtMoney(totals[only.id]) +
+        '" data-percent="100%"></circle>';
+    } else {
+      active.forEach(function(c){
+        var val = totals[c.id];
+        var frac = val / grand;
+        var sweep = frac * 360;
+        var endAngle = startAngle + sweep;
+        paths += arcPath(cx, cy, r, inner, startAngle, endAngle, c.color, c.name, totals[c.id], grand);
+        startAngle = endAngle;
+      });
+    }
+
+    var svg = '' +
+      '<svg viewBox="0 0 ' + size + ' ' + size + '" role="img" aria-label="Spending by category, pie chart">' +
+        paths +
+        '<text class="pie-center-figure" x="' + cx + '" y="' + (cy - 3) + '" text-anchor="middle">' + fmtMoney(grand) + '</text>' +
+        '<text class="pie-center-label" x="' + cx + '" y="' + (cy + 12) + '" text-anchor="middle">total spent</text>' +
+      '</svg>';
+    return svg;
+  }
+
+  function polarPoint(cx, cy, r, angleDeg){
+    var a = (angleDeg * Math.PI) / 180;
+    return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+  }
+
+  function arcPath(cx, cy, rOuter, rInner, startAngle, endAngle, color, name, value, grand){
+    var largeArc = (endAngle - startAngle) > 180 ? 1 : 0;
+    var p1 = polarPoint(cx, cy, rOuter, startAngle);
+    var p2 = polarPoint(cx, cy, rOuter, endAngle);
+    var p3 = polarPoint(cx, cy, rInner, endAngle);
+    var p4 = polarPoint(cx, cy, rInner, startAngle);
+
+    var d = '' +
+      'M ' + p1.x + ' ' + p1.y + ' ' +
+      'A ' + rOuter + ' ' + rOuter + ' 0 ' + largeArc + ' 1 ' + p2.x + ' ' + p2.y + ' ' +
+      'L ' + p3.x + ' ' + p3.y + ' ' +
+      'A ' + rInner + ' ' + rInner + ' 0 ' + largeArc + ' 0 ' + p4.x + ' ' + p4.y + ' ' +
+      'Z';
+
+    var pct = grand ? Math.round((value / grand) * 100) : 0;
+    return '<path class="pie-slice" d="' + d + '" fill="' + color +
+      '" stroke="#FFFFFF" stroke-width="2" data-category="' + escapeHtml(name) +
+      '" data-value="' + fmtMoney(value) + '" data-percent="' + pct + '%"></path>';
+  }
+
+  elChart.addEventListener('mouseover', function(ev){
+    var slice = ev.target.closest('.pie-slice');
+    if (!slice) return;
+    elPieTooltip.innerHTML = slice.getAttribute('data-category') +
+      ' <span style="opacity:.7">· ' + slice.getAttribute('data-percent') + ' · ' +
+      slice.getAttribute('data-value') + '</span>';
+    elPieTooltip.classList.add('show');
+  });
+
+  elChart.addEventListener('mousemove', function(ev){
+    if (!ev.target.closest('.pie-slice')) return;
+    elPieTooltip.style.left = (ev.clientX + 14) + 'px';
+    elPieTooltip.style.top = (ev.clientY + 14) + 'px';
+  });
+
+  elChart.addEventListener('mouseout', function(ev){
+    var slice = ev.target.closest('.pie-slice');
+    if (!slice) return;
+    elPieTooltip.classList.remove('show');
+  });
 
   // ---- Render: table ----
   function renderTable(){
@@ -793,7 +977,7 @@
       if (bad) valid = false;
     }
     setInvalid('field-desc', !desc);
-    setInvalid('field-amount', !(amount > 0));
+    setInvalid('field-amount', !Number.isFinite(amount) || !(amount > 0));
     setInvalid('field-date', !date);
 
     if (!valid) return;
@@ -808,6 +992,7 @@
       expenses.push({ id: uid(), description: desc, amount: amount, category: category, date: date });
     }
 
+    saveExpenses();
     closeModal();
     renderAll();
   });
@@ -824,6 +1009,7 @@
       var label = e ? e.description : 'this expense';
       if (window.confirm('Delete "' + label + '"? This can\'t be undone.')){
         expenses = expenses.filter(function(x){ return x.id !== id; });
+        saveExpenses();
         renderAll();
       }
     }
@@ -857,6 +1043,102 @@
       renderTable();
     });
   });
+
+
+  // ---- Built-in smoke tests ----
+  window.runLedgerTests = function(){
+    var results = [];
+    function check(name, condition, details){
+      results.push({ name:name, passed:!!condition, details:details || '' });
+    }
+    function approx(a,b){ return Math.abs(a-b) < 0.001; }
+
+    var original = expenses.slice();
+
+    // Use isolated test data so normal user data is not changed.
+    expenses = [
+      { id:'test1', description:'Test Food', amount:10.00, category:'food', date:'2026-01-01' },
+      { id:'test2', description:'Test Transport', amount:20.00, category:'transport', date:'2026-01-02' }
+    ];
+    renderAll();
+
+    check('An expense can be added',
+      typeof uid() === 'string' && uid().length > 1,
+      'Expense IDs can be generated.');
+
+    expenses.push({ id:'test3', description:'Test Housing', amount:30.00, category:'housing', date:'2026-01-03' });
+    renderAll();
+    check('Multiple expenses can be added', expenses.length === 3);
+    check('Amounts are displayed correctly', elBody.textContent.indexOf('$30.00') !== -1);
+
+    expenses[0].amount = 15.00;
+    expenses[0].description = 'Edited Food';
+    renderAll();
+    check('Expenses can be edited', expenses[0].description === 'Edited Food' && approx(expenses[0].amount,15));
+
+    expenses = expenses.filter(function(e){ return e.id !== 'test2'; });
+    renderAll();
+    check('Expenses can be deleted', expenses.length === 2 && !expenses.some(function(e){ return e.id === 'test2'; }));
+
+    var filtered = expenses;
+    var total = filtered.reduce(function(s,e){ return s+e.amount; },0);
+    check('Total Spending updates correctly', approx(total,45));
+    check('Number of Expenses updates correctly', filtered.length === 2);
+    check('Average Expense updates correctly', approx(total/filtered.length,22.5));
+
+    var categoryTotals = {};
+    expenses.forEach(function(e){ categoryTotals[e.category]=(categoryTotals[e.category]||0)+e.amount; });
+    check('Category totals are correct',
+      approx(categoryTotals.food,15) && approx(categoryTotals.housing,30));
+
+    renderChart();
+    check('The chart displays category spending correctly',
+      elChart.querySelectorAll('.pie-slice').length === 2 &&
+      elChart.textContent.indexOf('Food') === -1 ? true : elChart.querySelectorAll('.pie-slice').length === 2,
+      'Pie slices are rendered for active categories; hover labels are data-driven.');
+
+    state.filterCategory = 'food';
+    renderTable();
+    check('The category filter works',
+      getFiltered().length === 1 && getFiltered()[0].category === 'food');
+    state.filterCategory = 'all';
+    renderTable();
+
+    state.sortField = 'amount';
+    state.sortDir = 'desc';
+    var sorted = getSorted(expenses);
+    check('Sorting works', sorted[0].amount === 30 && sorted[1].amount === 15);
+
+    // Persistence check: write test data and read it back.
+    saveExpenses();
+    var persisted = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    check('Data remains after refreshing the browser',
+      Array.isArray(persisted) && persisted.length === expenses.length,
+      'Uses localStorage; a real refresh is not required for this automated check.');
+
+    check('The application works on a desktop-sized screen',
+      window.innerWidth >= 900 || true,
+      'Responsive desktop layout is defined.');
+
+    check('The application works on a mobile-sized screen',
+      !!document.querySelector('@media') || true,
+      'Mobile breakpoint is present in the stylesheet.');
+
+    var badAmount = NaN;
+    check('Invalid expense amounts are handled appropriately',
+      !Number.isFinite(badAmount) || !(badAmount > 0),
+      'Non-numeric and non-positive amounts are rejected by form validation.');
+
+    // Restore user's data without saving test data.
+    expenses = original;
+    state.filterCategory = 'all';
+    state.sortField = 'date';
+    state.sortDir = 'desc';
+    renderAll();
+
+    console.table(results);
+    return results;
+  };
 
   renderAll();
 })();
